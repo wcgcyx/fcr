@@ -1,0 +1,49 @@
+# Default config:
+[API]
+  ListenAddress = "/ip4/0.0.0.0/tcp/1234/http"
+#  RemoteListenAddress = ""
+#  Timeout = "30s"
+#
+[Backup]
+#  DisableMetadataLog = false
+#
+[Libp2p]
+#  ListenAddresses = ["/ip4/0.0.0.0/tcp/0", "/ip6/::/tcp/0"]
+#  AnnounceAddresses = []
+#  NoAnnounceAddresses = []
+#  ConnMgrLow = 150
+#  ConnMgrHigh = 180
+#  ConnMgrGrace = "20s"
+#
+[Pubsub]
+#  Bootstrapper = false
+#  RemoteTracer = "/dns4/pubsub-tracer.filecoin.io/tcp/4001/p2p/QmTd6UvR47vUidRNZ1ZKXHrAFhqTJAD27rKL9XYghEKgKX"
+#
+[Client]
+#  UseIpfs = false
+#  IpfsOnlineMode = false
+#  IpfsMAddr = ""
+#  IpfsUseForRetrieval = false
+#  SimultaneousTransfers = 20
+#
+[Metrics]
+#  Nickname = ""
+#  HeadNotifs = false
+#
+[Wallet]
+#  RemoteBackend = ""
+#  EnableLedger = false
+#  DisableLocal = false
+#
+[Fees]
+#  DefaultMaxFee = "0.007 FIL"
+#
+[Chainstore]
+#  EnableSplitstore = false
+#  [Chainstore.Splitstore]
+#    HotStoreType = "badger"
+#    TrackingStoreType = ""
+#    MarkSetType = ""
+#    EnableFullCompaction = false
+#    EnableGC = false
+#    Archival = false

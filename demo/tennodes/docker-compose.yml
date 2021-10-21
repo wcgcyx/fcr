@@ -1,0 +1,118 @@
+version: "3.8"
+services:
+
+  lotus:
+    image: wcgcyx/fcr/demo-lotus
+    container_name: lotus
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+
+  node0:
+    image: wcgcyx/fcr/demo-fcr
+    container_name: node0
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+    depends_on:
+      - lotus
+
+  node1:
+    image: wcgcyx/fcr/demo-fcr
+    container_name: node1
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+    depends_on:
+      - lotus
+
+  node2:
+    image: wcgcyx/fcr/demo-fcr
+    container_name: node2
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+    depends_on:
+      - lotus
+
+  node3:
+    image: wcgcyx/fcr/demo-fcr
+    container_name: node3
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+    depends_on:
+      - lotus
+
+  node4:
+    image: wcgcyx/fcr/demo-fcr
+    container_name: node4
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+    depends_on:
+      - lotus
+
+  node5:
+    image: wcgcyx/fcr/demo-fcr
+    container_name: node5
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+    depends_on:
+      - lotus
+
+  node6:
+    image: wcgcyx/fcr/demo-fcr
+    container_name: node6
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+    depends_on:
+      - lotus
+
+  node7:
+    image: wcgcyx/fcr/demo-fcr
+    container_name: node7
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+    depends_on:
+      - lotus
+
+  node8:
+    image: wcgcyx/fcr/demo-fcr
+    container_name: node8
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+    depends_on:
+      - lotus
+
+  node9:
+    image: wcgcyx/fcr/demo-fcr
+    container_name: node9
+    networks:
+      - shared
+    volumes:
+      - lotus-volume:/root/.lotus/
+    depends_on:
+      - lotus
+
+networks:
+  shared:
+    name: shared
+    external: false
+
+volumes:
+  lotus-volume:

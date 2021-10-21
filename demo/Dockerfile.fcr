@@ -1,0 +1,10 @@
+FROM golang:1.16-alpine
+
+RUN apk update && apk add --no-cache make gcc musl-dev linux-headers git
+WORKDIR /app/
+COPY . .
+RUN make build
+RUN mv build/fcr $GOPATH/bin/
+
+CMD ["./demo/docker-entrypoint.sh"]
+EXPOSE 9424 19955
