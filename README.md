@@ -2,6 +2,8 @@
 
 ![alt text](logo.png)
 
+[![wcgcyx](https://circleci.com/gh/wcgcyx/fcr.svg?style=shield)](https://app.circleci.com/pipelines/github/wcgcyx/fcr?branch=main&filter=all)
+
 ## _Yet another filecoin secondary retrieval client_
 > FCR is a filecoin secondary retrieval client featured with the ability to participate in an ipld  retrieval network and a payment proxy network.
 > You can earn filecoin (FIL) by importing a regular file or a .car file or a lotus unsealed sector and serving the ipld graph to the network for paid retrieval.
