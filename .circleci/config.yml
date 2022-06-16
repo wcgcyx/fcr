@@ -1,0 +1,49 @@
+version: 2.1
+
+jobs:
+  utest:
+    docker:
+      - image: cimg/go:1.17.9
+    resource_class: large
+    steps:
+      - checkout
+      - run: 
+          name: Unit testing
+          command: make utest
+
+  itest:
+    machine:
+      image: ubuntu-2204:2022.04.1
+    resource_class: large
+    steps:
+      - checkout
+      - run:
+          name: Build image
+          command: make docker
+      - run:
+          name: Start docker compose
+          command: docker compose up --force-recreate -d
+          working_directory: itest
+      - run:
+          name: Wait docker compose
+          command: sleep 10
+      - run:
+          name: Integration testing
+          command: go test --timeout 10m -v --count=1 .
+          working_directory: itest
+      - run:
+          name: Stop docker compose
+          command: docker compose down
+          working_directory: itest
+
+workflows:
+  build_and_test:
+    jobs:
+      - hold:
+          type: approval
+      - utest:
+          requires: 
+            - hold
+      - itest:
+          requires: 
+            - hold

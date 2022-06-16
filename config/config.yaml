@@ -1,0 +1,217 @@
+# Default configuration for FCR
+
+### Path ###
+# FCR datastore path: Empty for default path $HOME/.fcr
+FCR_PATH: ""
+
+### Port ###
+# FCR P2P port.
+FCR_P2P_PORT: 19955
+# FCR API port.
+FCR_API_PORT: 9424
+
+### API Server settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+APISEVER_LOGGING_LEVEL: INFO
+# Server DEV API enabled: True, False.
+APISEVER_DEV_MODE: False
+
+### Signer settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+SIGNER_LOGGING_LEVEL: INFO
+
+### Peer manager settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+PEERMGR_LOGGING_LEVEL: INFO
+
+### Transactor settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+TRANSACTOR_LOGGING_LEVEL: INFO
+# Filecoin enabled: True, False.
+TRANSACTOR_FILECOIN_ENABLED: True
+# Filecoin api address (Non empty if Filecoin is enabled).
+TRANSACTOR_FILECOIN_API: https://dev.node.glif.io/calibrationapi/lotus/rpc/v0
+# Filecoin auth token (Can be empty if remote access is used).
+TRANSACTOR_FILECOIN_AUTH_TOKEN: ""
+# Filecoin confidence: 0-10.
+TRANSACTOR_FILECOIN_CONFIDENCE: 2
+
+### Active out paych store settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+ACTIVEOUT_LOGGING_LEVEL: INFO
+# ActiveOut datastore timeout.
+ACTIVEOUT_DS_TIMEOUT: 5s
+# ActiveOut datastore retry limit.
+ACTIVEOUT_DS_RETRY: 5
+
+### Inactive out paych store settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+INACTIVEOUT_LOGGING_LEVEL: INFO
+# InactiveOut datastore timeout
+INACTIVEOUT_DS_TIMEOUT: 5s
+# InactiveOut datastore retry limit.
+INACTIVEOUT_DS_RETRY: 5
+
+### Active in paych store settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+ACTIVEIN_LOGGING_LEVEL: INFO
+# ActiveIn datastore timeout.
+ACTIVEIN_DS_TIMEOUT: 5s
+# ActiveIn datastore retry limit.
+ACTIVEIN_DS_RETRY: 5
+
+### Inactive in paych store settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+INACTIVEIN_LOGGING_LEVEL: INFO
+# InactiveIn datastore timeout.
+INACTIVEIN_DS_TIMEOUT: 5s
+# InactiveIn datastore retry limit.
+INACTIVEIN_DS_RETRY: 5
+
+### Paych serving manager settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+PSERVMGR_LOGGING_LEVEL: INFO
+
+### Route store settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+ROUTESTORE_LOGGING_LEVEL: INFO
+# RouteStore clean frequency.
+ROUTESTORE_CLEAN_FREQ: 2h
+# RouteStore clean timeout.
+ROUTESTORE_CLEAN_TIMEOUT: 10s
+# RouteStore max hop for FIL: 3-10.
+ROUTESTORE_MAX_HOP_FIL: 10
+
+### Subscriber store settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+SUBSTORE_LOGGING_LEVEL: INFO
+
+### Payment manager settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+PAYMGR_LOGGING_LEVEL: INFO
+# Payment manager cache sync frequency.
+PAYMGR_CACHE_SYNC_FREQ: 1m
+# Payment manager reservation clean frequency.
+PAYMGR_RES_CLEAN_FREQ: 10m
+# Payment manager reservation clean timeout.
+PAYMGR_RES_CLEAN_TIMEOUT: 10s
+# Payment manager peer clean frequency.
+PAYMGR_PEER_CLEAN_FREQ: 1h
+# Payment manager peer clean timeout.
+PAYMGR_PEER_CLEAN_TIMEOUT: 10s
+
+### Settlement manager settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+SETTLEMGR_LOGGING_LEVEL: INFO
+
+### Renew manager settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+RENEWMGR_LOGGING_LEVEL: INFO
+
+### Reservation manager settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+RESERVMGR_LOGGING_LEVEL: INFO
+
+### Offer manager settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+OFFERMGR_LOGGING_LEVEL: INFO
+
+### Paych monitor settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+PAYCHMONITOR_LOGGING_LEVEL: INFO
+# Paych monitor check frequency.
+PAYCHMONITOR_CHECK_FREQ: 1h
+
+### Piece manager settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+PIECEMGR_LOGGING_LEVEL: INFO
+
+### Piece serving manager settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+CSERVMGR_LOGGING_LEVEL: INFO
+
+### Miner proof store settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+MINERPROOFSTORE_LOGGING_LEVEL: INFO
+
+### Addr protocol settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+ADDRPROTO_LOGGING_LEVEL: INFO
+# Addr protocol IO timeout.
+ADDRPROTO_IO_TIMEOUT: 1m
+# Addr protocol OP timeout.
+ADDRPROTO_OP_TIMEOUT: 10s
+# Addr protocol publish frequency.
+ADDRPROTO_PUBLISH_FREQ: 2h
+
+### Paych protocol settings ###
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+PAYCHPROTO_LOGGING_LEVEL: INFO
+# Paych protocol IO timeout.
+PAYCHPROTO_IO_TIMEOUT: 1m
+# Paych protocol OP timeout.
+PAYCHPROTO_OP_TIMEOUT: 10s
+# Paych protocol offer expiry.
+PAYCHPROTO_OFFER_EXPIRY: 5m
+# Paych protocol renew window: 5-95.
+PAYCHPROTO_RENEW_WINDOW: 80
+
+# Route protocol settings
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+ROUTEPROTO_LOGGING_LEVEL: INFO
+# Route protocol IO timeout.
+ROUTEPROTO_IO_TIMEOUT: 1m
+# Route protocol OP timeout.
+ROUTEPROTO_OP_TIMEOUT: 10s
+# Route protocol publish frequency.
+ROUTEPROTO_PUBLISH_FREQ: 1h
+# Route protocol route expiry.
+ROUTEPROTO_ROUTE_EXPIRY: 1h30m
+# Route protocol initial wait time for publish.
+ROUTEPROTO_PUBLISH_WAIT: 1m
+
+# Pay offer protocol settings
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+POFFERPROTO_LOGGING_LEVEL: INFO
+# Pay offer protocol IO timeout.
+POFFERPROTO_IO_TIMEOUT: 1m
+# Pay offer protocol OP timeout.
+POFFERPROTO_OP_TIMEOUT: 10s
+# Pay offer protocol offer expiry.
+POFFERPROTO_OFFER_EXPIRY: 5m
+# Pay offer protocol offer inactivity.
+POFFERPROTO_OFFER_INACTIVITY: 1m
+
+# Piece offer protocol settings
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+COFFERPROTO_LOGGING_LEVEL: INFO
+# Piece offer protocol IO timeout.
+COFFERPROTO_IO_TIMEOUT: 1m
+# Piece offer protocol OP timeout.
+COFFERPROTO_OP_TIMEOUT: 10s
+# Piece offer protocol offer expiry.
+COFFERPROTO_OFFER_EXPIRY: 5m
+# Piece offer protocol offer inactivity.
+COFFERPROTO_OFFER_INACTIVITY: 1m
+# Piece offer protocol publish frequency.
+COFFERPROTO_PUBLISH_FREQ: 2h
+
+# Pay protocol settings
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+PAYPROTO_LOGGING_LEVEL: INFO
+# Pay protocol IO timeout.
+PAYPROTO_IO_TIMEOUT: 1m
+# Pay protocol OP timeout.
+PAYPROTO_OP_TIMEOUT: 10s
+# Pay protocol clean frequency.
+PAYPROTO_CLEAN_FREQ: 1h
+# Pay protocol clean timeout.
+PAYPROTO_CLEAN_TIMEOUT: 10s
+
+# Retrieval manager settings
+# Log Level: FATAL, PANIC, ERROR, WARN, INFO, DEBUG.
+RETMGR_LOGGING_LEVEL: INFO
+# Retrieval manager IO timeout.
+RETMGR_IO_TIMEOUT: 1m
+# Retrieval manager OP timeout.
+RETMGR_OP_TIMEOUT: 10s

@@ -1,0 +1,364 @@
+services:
+  mc:
+    image: wcgcyx/fcr
+    container_name: mc
+    networks:
+      - shared
+    command: mc
+  
+  provider0:
+    image: wcgcyx/fcr
+    container_name: provider0
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+  
+  provider1:
+    image: wcgcyx/fcr
+    container_name: provider1
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  provider2:
+    image: wcgcyx/fcr
+    container_name: provider2
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  provider3:
+    image: wcgcyx/fcr
+    container_name: provider3
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  provider4:
+    image: wcgcyx/fcr
+    container_name: provider4
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  provider5:
+    image: wcgcyx/fcr
+    container_name: provider5
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  provider6:
+    image: wcgcyx/fcr
+    container_name: provider6
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  provider7:
+    image: wcgcyx/fcr
+    container_name: provider7
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  broker0:
+    image: wcgcyx/fcr
+    container_name: broker0
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  broker1:
+    image: wcgcyx/fcr
+    container_name: broker1
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  broker2:
+    image: wcgcyx/fcr
+    container_name: broker2
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  broker3:
+    image: wcgcyx/fcr
+    container_name: broker3
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  broker4:
+    image: wcgcyx/fcr
+    container_name: broker4
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  broker5:
+    image: wcgcyx/fcr
+    container_name: broker5
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  broker6:
+    image: wcgcyx/fcr
+    container_name: broker6
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  broker7:
+    image: wcgcyx/fcr
+    container_name: broker7
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user0:
+    image: wcgcyx/fcr
+    container_name: user0
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user1:
+    image: wcgcyx/fcr
+    container_name: user1
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user2:
+    image: wcgcyx/fcr
+    container_name: user2
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user3:
+    image: wcgcyx/fcr
+    container_name: user3
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user4:
+    image: wcgcyx/fcr
+    container_name: user4
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user5:
+    image: wcgcyx/fcr
+    container_name: user5
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user6:
+    image: wcgcyx/fcr
+    container_name: user6
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user7:
+    image: wcgcyx/fcr
+    container_name: user7
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user8:
+    image: wcgcyx/fcr
+    container_name: user8
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user9:
+    image: wcgcyx/fcr
+    container_name: user9
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user10:
+    image: wcgcyx/fcr
+    container_name: user10
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user11:
+    image: wcgcyx/fcr
+    container_name: user11
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user12:
+    image: wcgcyx/fcr
+    container_name: user12
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user13:
+    image: wcgcyx/fcr
+    container_name: user13
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user14:
+    image: wcgcyx/fcr
+    container_name: user14
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+  user15:
+    image: wcgcyx/fcr
+    container_name: user15
+    networks:
+      - shared
+    command: fcr daemon
+    volumes:
+      - ./config.yaml:/root/.fcr/config.yaml
+    depends_on:
+      - mc
+
+networks:
+  shared:
+    name: shared
+    external: false
