@@ -25,7 +25,7 @@ require (
 	github.com/ipfs/go-merkledag v0.5.1
 	github.com/ipfs/go-unixfs v0.3.1
 	github.com/ipld/go-car/v2 v2.1.1
-	github.com/ipld/go-ipld-prime v0.14.4
+	github.com/ipld/go-ipld-prime v0.16.0
 	github.com/libp2p/go-libp2p v0.17.0
 	github.com/libp2p/go-libp2p-connmgr v0.3.1
 	github.com/libp2p/go-libp2p-core v0.13.0
@@ -136,7 +136,7 @@ require (
 	github.com/ipfs/go-unixfsnode v1.2.0 // indirect
 	github.com/ipfs/go-verifcid v0.0.1 // indirect
 	github.com/ipfs/interface-go-ipfs-core v0.4.0 // indirect
-	github.com/ipld/go-codec-dagpb v1.3.0 // indirect
+	github.com/ipld/go-codec-dagpb v1.3.1 // indirect
 	github.com/ipld/go-ipld-selector-text-lite v0.0.1 // indirect
 	github.com/ipsn/go-secp256k1 v0.0.0-20180726113642-9d62b9f0bc52 // indirect
 	github.com/jackpal/go-nat-pmp v1.0.2 // indirect
