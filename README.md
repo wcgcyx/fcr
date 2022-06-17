@@ -15,6 +15,10 @@
 ## Build and install
 ### Prerequisites
 Building `fcr` currently requires a Go (version 1.17.9 or later). To obtain Go, visit [here](https://go.dev/doc/install).
+
+You will also need to have `make` and `gcc` installed if not already.
+
+(Windows is not currently supported).
 ### Instructions
 1. Clone the repository and checkout to one of the releases [here](https://github.com/wcgcyx/fcr/releases). 
 ```
@@ -37,7 +41,7 @@ At the moment, FCR network runs only on [filecoin calibration network](https://d
 1. Add configuration.
 ```
 mkdir ~/.fcr/
-mv mv ./config/config.yaml ~/.fcr/
+mv ./config/config.yaml ~/.fcr/
 ```
 The configuration file by default uses the [testnet glif node endpoint](https://lotus.filecoin.io/developers/glif-nodes/#testnet-endpoint). If you wish to use local lotus node to access the network, set `TRANSACTOR_FILECOIN_AP` to be the local lotus API address (by default `http://localhost:1234/rpc/v0`) and set `TRANSACTOR_FILECOIN_AUTH_TOKEN` to be the API token.
 
