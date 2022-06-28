@@ -62,7 +62,7 @@ You can then obtain some testing FIL from the faucet [here](https://faucet.calib
 
 4. Bootstrapping
 
-To connect the network, you need to do a bootstrapping. You can find a list of available peers [here](https://github.com/wcgcyx/fcr/wiki).
+To connect the network, you need to do a bootstrapping. You can find a list of available peers [here](https://github.com/wcgcyx/fcr/wiki/Bootnodes).
 ```
 fcr system connect ${peer addr}
 ```
