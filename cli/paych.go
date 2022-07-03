@@ -242,8 +242,8 @@ var PaychTopupCMD = &cli.Command{
 
 var PaychUpdateCMD = &cli.Command{
 	Name:        "update",
-	Usage:       "update an active out paych",
-	Description: "Update a outbound payment channel",
+	Usage:       "update a paych",
+	Description: "Update the state of a payment channel",
 	ArgsUsage:   "[currency id, peer addr, paych addr]",
 	Action: func(c *cli.Context) error {
 		currency, err := strconv.ParseUint(c.Args().Get(0), 10, 8)

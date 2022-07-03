@@ -74,7 +74,7 @@ Normally, it is expensive to host your own video sharing website because you nee
 
 However, using FCR, you can setup a website that only serves video IDs to the user. The actual data is stored in FCR nodes that operate as retrieval providers and user will be able to stream videos from the peer-to-peer network via its own FCR node as a retrieval client.
 ## Documentation
-Detailed documentation and instructions on running FCR as retrieval provider/payment provider are WIP.
+Feel free to check wiki page [here](https://github.com/wcgcyx/fcr/wiki). Detailed documentation and instructions on running FCR as retrieval provider/payment provider can be found [here](https://github.com/wcgcyx/fcr/wiki/Operation).
 ## Issues
 Feel free to open an issue [here](https://github.com/wcgcyx/fcr/issues). Otherwise if you have questions or wish to discuss, you can join the [discord channel](https://discord.gg/GgK9eqrNtG).
 ## Contributor

@@ -282,7 +282,7 @@ var RenewGetCMD = &cli.Command{
 	Name:        "get",
 	Usage:       "get renew policy",
 	Description: "This command gets the renew policy",
-	ArgsUsage:   fmt.Sprintf("[currency id, peer addr (or %v)] or [currency id, peer addr, paych addr", renewmgr.DefaultPolicyID),
+	ArgsUsage:   fmt.Sprintf("[currency id, peer addr (or %v)] or [currency id, peer addr, paych addr]", renewmgr.DefaultPolicyID),
 	Action: func(c *cli.Context) error {
 		var duration time.Duration
 		if c.Args().Len() == 2 {
@@ -339,7 +339,7 @@ var RenewRemoveCMD = &cli.Command{
 	Name:        "remove",
 	Usage:       "remove renew policy",
 	Description: "This command removes the renew policy",
-	ArgsUsage:   fmt.Sprintf("[currency id, peer addr (or %v)] or [currency id, peer addr, paych addr", renewmgr.DefaultPolicyID),
+	ArgsUsage:   fmt.Sprintf("[currency id, peer addr (or %v)] or [currency id, peer addr, paych addr]", renewmgr.DefaultPolicyID),
 	Action: func(c *cli.Context) error {
 		if c.Args().Len() == 2 {
 			currencyID, err := strconv.ParseUint(c.Args().Get(0), 10, 8)
