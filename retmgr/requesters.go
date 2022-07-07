@@ -30,7 +30,7 @@ func (mgr *RetrievalManager) onOutgoingRequest(p peer.ID, request gs.RequestData
 	offerData, ok := request.Extension(offerExtension)
 	if !ok {
 		// Should never happen, will throw error in the next stage.
-		log.Errorf("Fail to get offer extention in outgoing request, should never happe")
+		log.Errorf("Fail to get offer extension in outgoing request, should never happe")
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)

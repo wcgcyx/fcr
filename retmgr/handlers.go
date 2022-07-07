@@ -36,7 +36,7 @@ func (mgr *RetrievalManager) onIncomingRequest(p peer.ID, request gs.RequestData
 	offerData, ok := request.Extension(offerExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("expect piece offer data"))
-		log.Debugf("Fail to get offer extention in incoming request")
+		log.Debugf("Fail to get offer extension in incoming request")
 		return
 	}
 	offer := fcroffer.PieceOffer{}
@@ -214,7 +214,7 @@ func (mgr *RetrievalManager) onOutgoingBlock(p peer.ID, request gs.RequestData, 
 	offerData, ok := request.Extension(offerExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("expect piece offer data"))
-		log.Debugf("Fail to get offer extention in incoming request")
+		log.Debugf("Fail to get offer extension in incoming request")
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)
@@ -260,7 +260,7 @@ func (mgr *RetrievalManager) onUpdatedRequest(p peer.ID, request gs.RequestData,
 	offerData, ok := request.Extension(offerExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("expect piece offer data"))
-		log.Debugf("Fail to get offer extention in incoming request")
+		log.Debugf("Fail to get offer extension in incoming request")
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)
@@ -272,14 +272,14 @@ func (mgr *RetrievalManager) onUpdatedRequest(p peer.ID, request gs.RequestData,
 	b, ok := updateRequest.Extension(paymentIndexExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("payment index not found"))
-		log.Debugf("Fail to get payment index extention in incoming request")
+		log.Debugf("Fail to get payment index extension in incoming request")
 		return
 	}
 	index := int64(binary.LittleEndian.Uint64(b))
 	b, ok = updateRequest.Extension(paymentExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("payment not found"))
-		log.Debugf("Fail to get payment extention in incoming request")
+		log.Debugf("Fail to get payment extension in incoming request")
 		return
 	}
 	paid := big.NewInt(0).SetBytes(b)
@@ -332,7 +332,7 @@ func (mgr *RetrievalManager) onComplete(p peer.ID, request gs.RequestData, statu
 	// Get offer ID
 	offerData, ok := request.Extension(offerExtension)
 	if !ok {
-		log.Warnf("Fail to get offer extention in incoming request")
+		log.Warnf("Fail to get offer extension in incoming request")
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)
@@ -395,7 +395,7 @@ func (mgr *RetrievalManager) OnRequestorCancelledListener(p peer.ID, request gs.
 	// Get offer ID
 	offerData, ok := request.Extension(offerExtension)
 	if !ok {
-		log.Warnf("Fail to get offer extention in incoming request")
+		log.Warnf("Fail to get offer extension in incoming request")
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)
@@ -435,7 +435,7 @@ func (mgr *RetrievalManager) OnNetworkErrorListener(p peer.ID, request gs.Reques
 	// Get offer ID
 	offerData, ok := request.Extension(offerExtension)
 	if !ok {
-		log.Warnf("Fail to get offer extention in incoming request")
+		log.Warnf("Fail to get offer extension in incoming request")
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)

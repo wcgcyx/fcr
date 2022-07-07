@@ -186,7 +186,7 @@ func (proto *PayProtocol) PayForSelf(ctx context.Context, currencyID byte, toAdd
 				log.Warnf("Fail add %v to history of %v-%v: %v", rec, currencyID, toAddr, err.Error())
 			}
 		}()
-		log.Warnf("Fail to pay as netowrk loss presents")
+		log.Warnf("Fail to pay as network loss presents")
 		return fmt.Errorf("fail to pay, network loss presents")
 	}
 	err = crypto.Verify(currencyID, append(pettyAmtRequired.Bytes(), secret[:]...), decoded.SigType, decoded.Signature, toAddr)
@@ -388,7 +388,7 @@ func (proto *PayProtocol) PayForSelfWithOffer(ctx context.Context, receivedOffer
 				log.Warnf("Fail add %v to history of %v-%v: %v", rec, currencyID, toAddr, err.Error())
 			}
 		}()
-		log.Warnf("Fail to pay as netowrk loss presents")
+		log.Warnf("Fail to pay as network loss presents")
 		return fmt.Errorf("fail to pay, network loss presents")
 	}
 	err = crypto.Verify(currencyID, append(pettyAmtRequired.Bytes(), secret[:]...), decoded.SigType, decoded.Signature, receivedOffer.DestAddr)
@@ -575,7 +575,7 @@ func (proto *PayProtocol) payForOthersFinal(ctx context.Context, sentOffer fcrof
 				log.Warnf("Fail add %v to history of %v-%v: %v", rec, currencyID, toAddr, err.Error())
 			}
 		}()
-		log.Warnf("Fail to pay as netowrk loss presents")
+		log.Warnf("Fail to pay as network loss presents")
 		return 0, nil, fmt.Errorf("fail to pay, network loss presents")
 	}
 	err = crypto.Verify(currencyID, append(originalAmt.Bytes(), originalSecret[:]...), decoded.SigType, decoded.Signature, sentOffer.DestAddr)
@@ -769,7 +769,7 @@ func (proto *PayProtocol) payForOthersIntermediate(ctx context.Context, sentOffe
 				log.Warnf("Fail add %v to history of %v-%v: %v", rec, currencyID, toAddr, err.Error())
 			}
 		}()
-		log.Warnf("Fail to pay as netowrk loss presents")
+		log.Warnf("Fail to pay as network loss presents")
 		return 0, nil, fmt.Errorf("fail to pay, network loss presents")
 	}
 	err = crypto.Verify(currencyID, append(originalAmt.Bytes(), originalSecret[:]...), decoded.SigType, decoded.Signature, sentOffer.DestAddr)
