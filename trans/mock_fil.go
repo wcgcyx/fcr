@@ -32,8 +32,8 @@ import (
 	lotuscrypto "github.com/filecoin-project/go-state-types/crypto"
 	"github.com/filecoin-project/lotus/api"
 	"github.com/filecoin-project/lotus/chain/types"
-	init7 "github.com/filecoin-project/specs-actors/v7/actors/builtin/init"
-	paych7 "github.com/filecoin-project/specs-actors/v7/actors/builtin/paych"
+	init8 "github.com/filecoin-project/specs-actors/v8/actors/builtin/init"
+	paych8 "github.com/filecoin-project/specs-actors/v8/actors/builtin/paych"
 	"github.com/ipfs/go-cid"
 	"github.com/multiformats/go-multihash"
 )
@@ -47,7 +47,7 @@ type MockFil struct {
 	blockTime  time.Duration
 	Height     int
 	PaychBals  map[string]*big.Int
-	PaychStats map[string]*paych7.State
+	PaychStats map[string]*paych8.State
 	transRes   map[string][]byte
 }
 
@@ -64,7 +64,7 @@ func NewMockFil(blockTime time.Duration) *MockFil {
 	res.blockTime = blockTime
 	res.Height = 0
 	res.PaychBals = make(map[string]*big.Int)
-	res.PaychStats = make(map[string]*paych7.State)
+	res.PaychStats = make(map[string]*paych8.State)
 	res.transRes = make(map[string][]byte)
 	go res.tickRoutine()
 	return &res
@@ -194,12 +194,12 @@ func (m *MockFil) MpoolPush(ctx context.Context, msg *types.SignedMessage) (cid.
 	} else if msg.Message.Method == 2 && msg.Message.To.String()[1:] == "01" {
 		// It is create.
 		// Create - 2 & to init (string repr is f01... x01) with value to be the initial balance.
-		var decodedParams init7.ExecParams
+		var decodedParams init8.ExecParams
 		err := decodedParams.UnmarshalCBOR(bytes.NewReader(msg.Message.Params))
 		if err != nil {
 			return cid.Cid{}, err
 		}
-		var constructorParams paych7.ConstructorParams
+		var constructorParams paych8.ConstructorParams
 		err = constructorParams.UnmarshalCBOR(bytes.NewReader(decodedParams.ConstructorParams))
 		if err != nil {
 			return cid.Cid{}, err
@@ -210,7 +210,7 @@ func (m *MockFil) MpoolPush(ctx context.Context, msg *types.SignedMessage) (cid.
 		if err != nil {
 			return cid.Cid{}, err
 		}
-		ret := init7.ExecReturn{
+		ret := init8.ExecReturn{
 			IDAddress:     chAddr,
 			RobustAddress: chAddr,
 		}
@@ -234,7 +234,7 @@ func (m *MockFil) MpoolPush(ctx context.Context, msg *types.SignedMessage) (cid.
 		if err != nil {
 			return cid.Cid{}, err
 		}
-		m.PaychStats[objectHash.String()] = &paych7.State{
+		m.PaychStats[objectHash.String()] = &paych8.State{
 			From:            constructorParams.From,
 			To:              constructorParams.To,
 			ToSend:          abi.NewTokenAmount(0),
@@ -246,7 +246,7 @@ func (m *MockFil) MpoolPush(ctx context.Context, msg *types.SignedMessage) (cid.
 	} else if msg.Message.Method == 2 {
 		// It is update.
 		// Update - 2 & to chAddr.
-		var updateParams paych7.UpdateChannelStateParams
+		var updateParams paych8.UpdateChannelStateParams
 		err := updateParams.UnmarshalCBOR(bytes.NewReader(msg.Message.Params))
 		if err != nil {
 			return cid.Cid{}, err

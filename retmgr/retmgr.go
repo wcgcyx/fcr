@@ -457,10 +457,10 @@ func (mgr *RetrievalManager) Retrieve(ctx context.Context, pieceOffer fcroffer.P
 		allSelector := ssb.ExploreRecursive(selector.RecursionLimitNone(),
 			ssb.ExploreAll(ssb.ExploreRecursiveEdge())).Node()
 		respCh, errCh := mgr.exchangeOut.Request(ctx, pid, cidlink.Link{Cid: pieceOffer.ID}, allSelector,
-			gs.ExtensionData{Name: offerExtension, Data: offerData},
-			gs.ExtensionData{Name: keyTypeExtension, Data: []byte{keyType}},
-			gs.ExtensionData{Name: fromExtension, Data: []byte(fromAddr)},
-			gs.ExtensionData{Name: signatureExtension, Data: sig},
+			gs.ExtensionData{Name: offerExtension, Data: basicnode.NewBytes(offerData)},
+			gs.ExtensionData{Name: keyTypeExtension, Data: basicnode.NewBytes([]byte{keyType})},
+			gs.ExtensionData{Name: fromExtension, Data: basicnode.NewBytes([]byte(fromAddr))},
+			gs.ExtensionData{Name: signatureExtension, Data: basicnode.NewBytes(sig)},
 		)
 		wg := sync.WaitGroup{}
 		wg.Add(1)
