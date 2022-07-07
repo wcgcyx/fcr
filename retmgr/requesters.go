@@ -21,16 +21,23 @@ import (
 	"time"
 
 	gs "github.com/ipfs/go-graphsync"
+	"github.com/ipld/go-ipld-prime/node/basicnode"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 
 // onOutgoingRequest is the hook called on outgoing request.
 func (mgr *RetrievalManager) onOutgoingRequest(p peer.ID, request gs.RequestData, hookActions gs.OutgoingRequestHookActions) {
 	log.Debugf("On outgoing request to peer %v: %v", p, request.ID())
-	offerData, ok := request.Extension(offerExtension)
+	offerDataNode, ok := request.Extension(offerExtension)
 	if !ok {
 		// Should never happen, will throw error in the next stage.
-		log.Errorf("Fail to get offer extension in outgoing request, should never happe")
+		log.Errorf("Fail to get offer extension in outgoing request, should never happen")
+		return
+	}
+	offerData, err := offerDataNode.AsBytes()
+	if err != nil {
+		// Should never happen, will throw error in the next stage.
+		log.Errorf("Fail to convert offer extension to bytes: %v, should never happen", err.Error())
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)
@@ -96,7 +103,7 @@ func (mgr *RetrievalManager) onIncomingBlock(p peer.ID, responseData gs.Response
 		// Send extension.
 		index := make([]byte, 8)
 		binary.LittleEndian.PutUint64(index, uint64(blockData.Index()))
-		hookActions.UpdateRequestWithExtensions(gs.ExtensionData{Name: paymentExtension, Data: paymentRequired.Bytes()}, gs.ExtensionData{Name: paymentIndexExtension, Data: index})
+		hookActions.UpdateRequestWithExtensions(gs.ExtensionData{Name: paymentExtension, Data: basicnode.NewBytes(paymentRequired.Bytes())}, gs.ExtensionData{Name: paymentIndexExtension, Data: basicnode.NewBytes(index)})
 	}
 	// In case peer restarted, double the extension.
 	state.expiredAt = time.Now().Add(2 * state.inactivity)

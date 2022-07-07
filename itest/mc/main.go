@@ -26,7 +26,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/filecoin-project/specs-actors/v7/actors/builtin/paych"
+	"github.com/filecoin-project/specs-actors/v8/actors/builtin/paych"
 	"github.com/wcgcyx/fcr/trans"
 )
 

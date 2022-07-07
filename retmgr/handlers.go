@@ -22,6 +22,7 @@ import (
 	"time"
 
 	gs "github.com/ipfs/go-graphsync"
+	"github.com/ipld/go-ipld-prime/node/basicnode"
 	"github.com/libp2p/go-libp2p-core/peer"
 	golock "github.com/viney-shih/go-lock"
 	"github.com/wcgcyx/fcr/crypto"
@@ -33,14 +34,20 @@ import (
 func (mgr *RetrievalManager) onIncomingRequest(p peer.ID, request gs.RequestData, hookActions gs.IncomingRequestHookActions) {
 	log.Debugf("On incoming request from peer %v: %v", p, request.ID())
 	// Verify offer
-	offerData, ok := request.Extension(offerExtension)
+	offerDataNode, ok := request.Extension(offerExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("expect piece offer data"))
 		log.Debugf("Fail to get offer extension in incoming request")
 		return
 	}
+	offerData, err := offerDataNode.AsBytes()
+	if err != nil {
+		hookActions.TerminateWithError(fmt.Errorf("fail to convert piece offer data"))
+		log.Debugf("Fail to convert offer extension to bytes in incoming request: %v", err.Error())
+		return
+	}
 	offer := fcroffer.PieceOffer{}
-	err := offer.Decode(offerData)
+	err = offer.Decode(offerData)
 	if err != nil {
 		hookActions.TerminateWithError(fmt.Errorf("fail to decode piece offer"))
 		log.Debugf("Fail to decode offer: %v", err.Error())
@@ -64,10 +71,16 @@ func (mgr *RetrievalManager) onIncomingRequest(p peer.ID, request gs.RequestData
 		return
 	}
 	// Verify sender.
-	keyType, ok := request.Extension(keyTypeExtension)
+	keyTypeNode, ok := request.Extension(keyTypeExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("expect key type"))
 		log.Debugf("Fail to get key type extension")
+		return
+	}
+	keyType, err := keyTypeNode.AsBytes()
+	if err != nil {
+		hookActions.TerminateWithError(fmt.Errorf("fail to convert key type"))
+		log.Debugf("Fail to convert key type extension to bytes: %v", err.Error())
 		return
 	}
 	if len(keyType) != 1 {
@@ -75,16 +88,28 @@ func (mgr *RetrievalManager) onIncomingRequest(p peer.ID, request gs.RequestData
 		log.Debugf("Key type should be length 1 got %v", len(keyType))
 		return
 	}
-	fromAddr, ok := request.Extension(fromExtension)
+	fromAddrNode, ok := request.Extension(fromExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("expect from addr"))
 		log.Debugf("Fail to get peer address")
 		return
 	}
-	sig, ok := request.Extension(signatureExtension)
+	fromAddr, err := fromAddrNode.AsBytes()
+	if err != nil {
+		hookActions.TerminateWithError(fmt.Errorf("fail to convert from addr"))
+		log.Debugf("Fail to convert peer address: %v", err.Error())
+		return
+	}
+	sigNode, ok := request.Extension(signatureExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("expect signature"))
 		log.Debugf("Fail to get signature")
+		return
+	}
+	sig, err := sigNode.AsBytes()
+	if err != nil {
+		hookActions.TerminateWithError(fmt.Errorf("fail to convert signature"))
+		log.Debugf("Fail to convert signature: %v", err.Error())
 		return
 	}
 	err = crypto.Verify(offer.CurrencyID, offerData, keyType[0], sig, string(fromAddr))
@@ -211,10 +236,16 @@ func (mgr *RetrievalManager) onIncomingRequest(p peer.ID, request gs.RequestData
 func (mgr *RetrievalManager) onOutgoingBlock(p peer.ID, request gs.RequestData, block gs.BlockData, hookActions gs.OutgoingBlockHookActions) {
 	log.Debugf("On outgoing block: index %v, size %v, size on wire %v", block.Index(), block.BlockSize(), block.BlockSizeOnWire())
 	// Get offer ID
-	offerData, ok := request.Extension(offerExtension)
+	offerDataNode, ok := request.Extension(offerExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("expect piece offer data"))
 		log.Debugf("Fail to get offer extension in incoming request")
+		return
+	}
+	offerData, err := offerDataNode.AsBytes()
+	if err != nil {
+		hookActions.TerminateWithError(fmt.Errorf("fail to convert piece offer data"))
+		log.Debugf("Fail to convert offer extension to bytes in incoming request: %v", err.Error())
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)
@@ -244,7 +275,7 @@ func (mgr *RetrievalManager) onOutgoingBlock(p peer.ID, request gs.RequestData, 
 		if block.Index() > state.index {
 			// Haven't paid yet.
 			state.paymentRequired.Mul(state.ppb, big.NewInt(int64(block.BlockSizeOnWire())))
-			hookActions.SendExtensionData(gs.ExtensionData{Name: paymentExtension, Data: []byte{1}})
+			hookActions.SendExtensionData(gs.ExtensionData{Name: paymentExtension, Data: basicnode.NewBytes([]byte{1})})
 			log.Debugf("Request paused for %v-%v", p, request.ID())
 			hookActions.PauseResponse()
 		}
@@ -257,10 +288,16 @@ func (mgr *RetrievalManager) onOutgoingBlock(p peer.ID, request gs.RequestData, 
 func (mgr *RetrievalManager) onUpdatedRequest(p peer.ID, request gs.RequestData, updateRequest gs.RequestData, hookActions gs.RequestUpdatedHookActions) {
 	log.Debugf("On updated request for %v", updateRequest.ID())
 	// Get offer ID
-	offerData, ok := request.Extension(offerExtension)
+	offerDataNode, ok := request.Extension(offerExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("expect piece offer data"))
 		log.Debugf("Fail to get offer extension in incoming request")
+		return
+	}
+	offerData, err := offerDataNode.AsBytes()
+	if err != nil {
+		hookActions.TerminateWithError(fmt.Errorf("fail to convert piece offer data"))
+		log.Debugf("Fail to convert offer extension to bytes in incoming request: %v", err.Error())
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)
@@ -269,17 +306,29 @@ func (mgr *RetrievalManager) onUpdatedRequest(p peer.ID, request gs.RequestData,
 		log.Errorf("Fail to get offer id: %v", err.Error())
 		return
 	}
-	b, ok := updateRequest.Extension(paymentIndexExtension)
+	bNode, ok := updateRequest.Extension(paymentIndexExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("payment index not found"))
 		log.Debugf("Fail to get payment index extension in incoming request")
 		return
 	}
+	b, err := bNode.AsBytes()
+	if err != nil {
+		hookActions.TerminateWithError(fmt.Errorf("fail to convert payment index"))
+		log.Debugf("Fail to convert payment index extension to bytes in incoming request: %v", err.Error())
+		return
+	}
 	index := int64(binary.LittleEndian.Uint64(b))
-	b, ok = updateRequest.Extension(paymentExtension)
+	bNode, ok = updateRequest.Extension(paymentExtension)
 	if !ok {
 		hookActions.TerminateWithError(fmt.Errorf("payment not found"))
 		log.Debugf("Fail to get payment extension in incoming request")
+		return
+	}
+	b, err = bNode.AsBytes()
+	if err != nil {
+		hookActions.TerminateWithError(fmt.Errorf("fail to convert payment"))
+		log.Debugf("Fail to convert payment extension to bytes in incoming request: %v", err.Error())
 		return
 	}
 	paid := big.NewInt(0).SetBytes(b)
@@ -330,9 +379,14 @@ func (mgr *RetrievalManager) onUpdatedRequest(p peer.ID, request gs.RequestData,
 // onComplete is the hook called when retrieval is completed.
 func (mgr *RetrievalManager) onComplete(p peer.ID, request gs.RequestData, status gs.ResponseStatusCode) {
 	// Get offer ID
-	offerData, ok := request.Extension(offerExtension)
+	offerDataNode, ok := request.Extension(offerExtension)
 	if !ok {
 		log.Warnf("Fail to get offer extension in incoming request")
+		return
+	}
+	offerData, err := offerDataNode.AsBytes()
+	if err != nil {
+		log.Warnf("Fail to convert offer extension to bytes in incoming request: %v", err.Error())
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)
@@ -393,9 +447,14 @@ func (mgr *RetrievalManager) onComplete(p peer.ID, request gs.RequestData, statu
 func (mgr *RetrievalManager) OnRequestorCancelledListener(p peer.ID, request gs.RequestData) {
 	log.Debugf("Request cancelled for %v-%v", p, request.ID())
 	// Get offer ID
-	offerData, ok := request.Extension(offerExtension)
+	offerDataNode, ok := request.Extension(offerExtension)
 	if !ok {
 		log.Warnf("Fail to get offer extension in incoming request")
+		return
+	}
+	offerData, err := offerDataNode.AsBytes()
+	if err != nil {
+		log.Warnf("Fail to convert offer extension to bytes in incoming request: %v", err.Error())
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)
@@ -433,9 +492,14 @@ func (mgr *RetrievalManager) OnRequestorCancelledListener(p peer.ID, request gs.
 func (mgr *RetrievalManager) OnNetworkErrorListener(p peer.ID, request gs.RequestData, err error) {
 	log.Debugf("Request has network error for %v-%v", p, request.ID())
 	// Get offer ID
-	offerData, ok := request.Extension(offerExtension)
+	offerDataNode, ok := request.Extension(offerExtension)
 	if !ok {
 		log.Warnf("Fail to get offer extension in incoming request")
+		return
+	}
+	offerData, err := offerDataNode.AsBytes()
+	if err != nil {
+		log.Warnf("Fail to convert offer extension to bytes in incoming request: %v", err.Error())
 		return
 	}
 	offerID, err := getOfferIDRaw(offerData)

@@ -27,14 +27,15 @@ import (
 	lotuscrypto2 "github.com/filecoin-project/go-crypto"
 	"github.com/filecoin-project/go-jsonrpc"
 	lotusbig "github.com/filecoin-project/go-state-types/big"
+	paychtypes "github.com/filecoin-project/go-state-types/builtin/v8/paych"
 	lotuscrypto "github.com/filecoin-project/go-state-types/crypto"
 	"github.com/filecoin-project/lotus/api"
 	"github.com/filecoin-project/lotus/api/v0api"
 	"github.com/filecoin-project/lotus/chain/actors"
 	"github.com/filecoin-project/lotus/chain/actors/builtin/paych"
 	"github.com/filecoin-project/lotus/chain/types"
-	init7 "github.com/filecoin-project/specs-actors/v7/actors/builtin/init"
-	paych7 "github.com/filecoin-project/specs-actors/v7/actors/builtin/paych"
+	init8 "github.com/filecoin-project/specs-actors/v8/actors/builtin/init"
+	paych8 "github.com/filecoin-project/specs-actors/v8/actors/builtin/paych"
 	"github.com/minio/blake2b-simd"
 	"github.com/wcgcyx/fcr/crypto"
 )
@@ -109,7 +110,7 @@ func (a *filAdapter) Create(ctx context.Context, toAddr string, amt *big.Int) (s
 		defer closer()
 	}
 	// Build message
-	builder := paych.Message(actors.Version7, from)
+	builder := paych.Message(actors.Version8, from)
 	msg, err := builder.Create(to, lotusbig.NewFromGo(amt))
 	if err != nil {
 		log.Errorf("Fail to build message: %v", err.Error())
@@ -135,7 +136,7 @@ func (a *filAdapter) Create(ctx context.Context, toAddr string, amt *big.Int) (s
 		log.Warnf("Fail to execute %v: %v", txHash.String(), receipt.Receipt.ExitCode.Error())
 		return "", fmt.Errorf("fail to execute %v: %v", txHash.String(), receipt.Receipt.ExitCode.Error())
 	}
-	var decodedReturn init7.ExecReturn
+	var decodedReturn init8.ExecReturn
 	err = decodedReturn.UnmarshalCBOR(bytes.NewReader(receipt.Receipt.Return))
 	if err != nil {
 		log.Errorf("Fail to decode return from %v: %v", txHash.String(), err.Error())
@@ -244,7 +245,7 @@ func (a *filAdapter) Check(ctx context.Context, chAddr string) (int64, int64, in
 		log.Warnf("Fail to read chain object for %v: %v", actor.Head, err.Error())
 		return 0, 0, 0, nil, nil, "", "", err
 	}
-	state := paych7.State{}
+	state := paych8.State{}
 	err = state.UnmarshalCBOR(bytes.NewReader(data))
 	if err != nil {
 		log.Errorf("Fail to decode data %v into paych state: %v", data, err.Error())
@@ -308,7 +309,7 @@ func (a *filAdapter) Update(ctx context.Context, chAddr string, voucher string) 
 		defer closer()
 	}
 	// Build message
-	builder := paych.Message(actors.Version7, from)
+	builder := paych.Message(actors.Version8, from)
 	msg, err := builder.Update(ch, sv, nil)
 	if err != nil {
 		log.Errorf("Fail to build message: %v", err.Error())
@@ -372,7 +373,7 @@ func (a *filAdapter) Settle(ctx context.Context, chAddr string) error {
 		defer closer()
 	}
 	// Build message
-	builder := paych.Message(actors.Version7, from)
+	builder := paych.Message(actors.Version8, from)
 	msg, err := builder.Settle(ch)
 	if err != nil {
 		log.Errorf("Fail to build message: %v", err.Error())
@@ -436,7 +437,7 @@ func (a *filAdapter) Collect(ctx context.Context, chAddr string) error {
 		defer closer()
 	}
 	// Build message
-	builder := paych.Message(actors.Version7, from)
+	builder := paych.Message(actors.Version8, from)
 	msg, err := builder.Collect(ch)
 	if err != nil {
 		log.Errorf("Fail to build message: %v", err.Error())
@@ -530,7 +531,7 @@ func (a *filAdapter) GenerateVoucher(ctx context.Context, chAddr string, lane ui
 	if err != nil {
 		return "", err
 	}
-	sv := &paych.SignedVoucher{
+	sv := &paychtypes.SignedVoucher{
 		ChannelAddr: ch,
 		Lane:        lane,
 		Nonce:       nonce,
@@ -574,7 +575,7 @@ func (a *filAdapter) VerifyVoucher(voucher string) (string, string, uint64, uint
 	if int64(sv.TimeLockMin) != 0 {
 		return "", "", 0, 0, nil, fmt.Errorf("non emptry time lock max not supported")
 	}
-	if sv.SecretPreimage != nil {
+	if sv.SecretHash != nil {
 		return "", "", 0, 0, nil, fmt.Errorf("non emptry secret preimage not supported")
 	}
 	if sv.Extra != nil {

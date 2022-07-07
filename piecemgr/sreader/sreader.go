@@ -17,7 +17,7 @@ package sreader
 import (
 	"io"
 
-	"github.com/filecoin-project/lotus/extern/sector-storage/fr32"
+	"github.com/filecoin-project/lotus/storage/sealer/fr32"
 )
 
 // SectorReader is a relatively memory efficient reader to
