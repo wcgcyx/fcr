@@ -31,6 +31,7 @@ import (
 	lotuscrypto "github.com/filecoin-project/go-state-types/crypto"
 	"github.com/filecoin-project/lotus/api"
 	"github.com/filecoin-project/lotus/api/v0api"
+	"github.com/filecoin-project/lotus/build"
 	"github.com/filecoin-project/lotus/chain/actors"
 	"github.com/filecoin-project/lotus/chain/actors/builtin/paych"
 	"github.com/filecoin-project/lotus/chain/types"
@@ -54,6 +55,11 @@ type filAdapter struct {
 //
 // @output - filAdapter, error.
 func newFilAdapter(ctx context.Context, signer crypto.Signer, lotusAP string, authToken string, confidence uint64) (*filAdapter, error) {
+	// switch to calibration network
+	err := build.UseNetworkBundle("calibrationnet")
+	if err != nil {
+		return nil, err
+	}
 	adapter := &filAdapter{
 		signer:     signer,
 		lotusAP:    lotusAP,
