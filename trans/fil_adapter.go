@@ -442,6 +442,16 @@ func (a *filAdapter) Collect(ctx context.Context, chAddr string) error {
 	if closer != nil {
 		defer closer()
 	}
+	// Check if actor exists
+	_, err = api.StateGetActor(ctx, ch, types.EmptyTSK)
+	if err != nil {
+		if strings.Contains(err.Error(), "actor not found") {
+			log.Debugf("Channel address %v does not exist", chAddr)
+			return nil
+		}
+		log.Warnf("Fail to get actor state for %v: %v", chAddr, err.Error())
+		return err
+	}
 	// Build message
 	builder := paych.Message(actors.Version8, from)
 	msg, err := builder.Collect(ch)
