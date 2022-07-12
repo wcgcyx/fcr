@@ -38,7 +38,7 @@ type History struct {
 
 // This is the main program for mock chain.
 func main() {
-	l, err := net.Listen("tcp", "0.0.0.0:9010")
+	l, err := net.Listen("tcp", "0.0.0.0:8888")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
