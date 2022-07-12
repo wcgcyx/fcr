@@ -30,7 +30,7 @@ TRANSACTOR_LOGGING_LEVEL: INFO
 # Filecoin enabled: True, False.
 TRANSACTOR_FILECOIN_ENABLED: True
 # Filecoin api address (Non empty if Filecoin is enabled).
-TRANSACTOR_FILECOIN_API: http://mc:9010
+TRANSACTOR_FILECOIN_API: http://mc:8888
 # Filecoin auth token (Can be empty if remote access is used).
 TRANSACTOR_FILECOIN_AUTH_TOKEN: ""
 # Filecoin confidence: 0-10.
