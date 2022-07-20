@@ -15,6 +15,7 @@ package cli
  */
 
 import (
+	"encoding/base64"
 	"fmt"
 	"math/big"
 	"strconv"
@@ -35,6 +36,8 @@ var CServingCMD = &cli.Command{
 		CServingListCMD,
 		CServingInspectCMD,
 		CServingStopCMD,
+		CServingSetMinerProofCMD,
+		CServingGetMinerProofCMD,
 	},
 }
 
@@ -171,6 +174,72 @@ var CServingStopCMD = &cli.Command{
 			return err
 		}
 		fmt.Println("Succeed")
+		return nil
+	},
+}
+
+var CServingSetMinerProofCMD = &cli.Command{
+	Name:        "set-miner-proof",
+	Usage:       "set the miner proof for served piece",
+	Description: "Set the miner proof for served piece for given currency id",
+	ArgsUsage:   "[currency id, miner key type, miner address, base64 proof]",
+	Action: func(c *cli.Context) error {
+		// Parse arguments.
+		currencyID, err := strconv.ParseUint(c.Args().Get(0), 10, 8)
+		if err != nil {
+			return usageError(c, fmt.Errorf("fail to parse currency id: %v", err.Error()))
+		}
+		keyType, err := strconv.ParseUint(c.Args().Get(1), 10, 8)
+		if err != nil {
+			return usageError(c, fmt.Errorf("fail to parse key type: %v", err.Error()))
+		}
+		minerAddr := c.Args().Get(2)
+		if minerAddr == "" {
+			return usageError(c, fmt.Errorf("received empty miner addr"))
+		}
+		proof, err := base64.StdEncoding.DecodeString(c.Args().Get(3))
+		if err != nil {
+			return usageError(c, fmt.Errorf("fail to parse proof: %v", err.Error()))
+		}
+		client, closer, err := api.NewClient(c.Context, c.Int("port"), c.Path("auth"))
+		if err != nil {
+			return err
+		}
+		defer closer()
+		err = client.MPSUpsertMinerProof(c.Context, byte(currencyID), byte(keyType), minerAddr, proof)
+		if err != nil {
+			return err
+		}
+		fmt.Println("Succeed")
+		return nil
+	},
+}
+
+var CServingGetMinerProofCMD = &cli.Command{
+	Name:        "get-miner-proof",
+	Usage:       "get the miner proof for served piece",
+	Description: "Get the miner proof for served piece for given currency id",
+	ArgsUsage:   "[currency id]",
+	Action: func(c *cli.Context) error {
+		// Parse arguments.
+		currencyID, err := strconv.ParseUint(c.Args().Get(0), 10, 8)
+		if err != nil {
+			return usageError(c, fmt.Errorf("fail to parse currency id: %v", err.Error()))
+		}
+		client, closer, err := api.NewClient(c.Context, c.Int("port"), c.Path("auth"))
+		if err != nil {
+			return err
+		}
+		defer closer()
+		res, err := client.MPSGetMinerProof(c.Context, byte(currencyID))
+		if err != nil {
+			return err
+		}
+		if !res.Exists {
+			fmt.Println("Not set")
+		} else {
+			fmt.Printf("Linked miner: %v (Type %v), Proof: %v\n", res.MinerAddr, res.MinerKeyType, base64.StdEncoding.EncodeToString(res.Proof))
+		}
 		return nil
 	},
 }
