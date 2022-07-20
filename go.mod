@@ -8,7 +8,7 @@ require (
 	github.com/filecoin-project/go-crypto v0.0.1
 	github.com/filecoin-project/go-jsonrpc v0.1.5
 	github.com/filecoin-project/go-state-types v0.1.10
-	github.com/filecoin-project/lotus v1.17.0-rc2
+	github.com/filecoin-project/lotus v1.17.0-rc3
 	github.com/filecoin-project/specs-actors/v8 v8.0.1
 	github.com/ipfs/go-block-format v0.0.3
 	github.com/ipfs/go-blockservice v0.3.0
@@ -24,15 +24,15 @@ require (
 	github.com/ipfs/go-log v1.0.5
 	github.com/ipfs/go-merkledag v0.6.0
 	github.com/ipfs/go-unixfs v0.3.1
-	github.com/ipld/go-car/v2 v2.4.0
+	github.com/ipld/go-car/v2 v2.4.1
 	github.com/ipld/go-ipld-prime v0.17.0
-	github.com/libp2p/go-libp2p v0.20.1
-	github.com/libp2p/go-libp2p-connmgr v0.3.1
+	github.com/libp2p/go-libp2p v0.20.3
+	github.com/libp2p/go-libp2p-connmgr v0.4.0
 	github.com/libp2p/go-libp2p-core v0.16.1
 	github.com/libp2p/go-libp2p-kad-dht v0.15.0
-	github.com/libp2p/go-libp2p-noise v0.4.0
+	github.com/libp2p/go-libp2p-noise v0.5.0
 	github.com/libp2p/go-libp2p-routing v0.1.0
-	github.com/libp2p/go-libp2p-tls v0.4.1
+	github.com/libp2p/go-libp2p-tls v0.5.0
 	github.com/minio/blake2b-simd v0.0.0-20160723061019-3f5f724cb5b1
 	github.com/mr-tron/base58 v1.2.0
 	github.com/multiformats/go-multiaddr v0.5.0
@@ -79,7 +79,7 @@ require (
 	github.com/filecoin-project/go-bitfield v0.2.4 // indirect
 	github.com/filecoin-project/go-cbor-util v0.0.1 // indirect
 	github.com/filecoin-project/go-data-transfer v1.15.2 // indirect
-	github.com/filecoin-project/go-fil-markets v1.23.0 // indirect
+	github.com/filecoin-project/go-fil-markets v1.23.1 // indirect
 	github.com/filecoin-project/go-hamt-ipld v0.1.5 // indirect
 	github.com/filecoin-project/go-hamt-ipld/v2 v2.0.0 // indirect
 	github.com/filecoin-project/go-hamt-ipld/v3 v3.1.0 // indirect
@@ -92,7 +92,6 @@ require (
 	github.com/filecoin-project/specs-actors/v5 v5.0.6 // indirect
 	github.com/filecoin-project/specs-actors/v6 v6.0.2 // indirect
 	github.com/filecoin-project/specs-actors/v7 v7.0.1 // indirect
-	github.com/filecoin-project/specs-storage v0.4.1 // indirect
 	github.com/flynn/noise v1.0.0 // indirect
 	github.com/francoispqt/gojay v1.2.13 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
@@ -188,7 +187,7 @@ require (
 	github.com/multiformats/go-multiaddr-fmt v0.1.0 // indirect
 	github.com/multiformats/go-multibase v0.0.3 // indirect
 	github.com/multiformats/go-multicodec v0.5.0 // indirect
-	github.com/multiformats/go-multistream v0.3.1 // indirect
+	github.com/multiformats/go-multistream v0.3.3 // indirect
 	github.com/multiformats/go-varint v0.0.6 // indirect
 	github.com/nkovacs/streamquote v1.0.0 // indirect
 	github.com/nxadm/tail v1.4.8 // indirect
